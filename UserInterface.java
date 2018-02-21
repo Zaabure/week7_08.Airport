@@ -7,7 +7,7 @@ public class UserInterface {
 
     public UserInterface(Scanner reader) {
         this.reader = reader;
-        flight = new Flight()
+//        flight = new Flight()
     }
 
     public void airportUI() {
@@ -37,7 +37,7 @@ public class UserInterface {
         System.out.println();
         System.out.print("Give plane capacity: ");
         int planeCapacity = Integer.parseInt(reader.nextLine());
-        flight.addPlaneToList(new Airplane(planeName, planeCapacity));
+//        flight.addPlaneToList(new Airplane(planeName, planeCapacity));
     }
 
     private void addFlight() {

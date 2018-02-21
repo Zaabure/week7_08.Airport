@@ -5,11 +5,11 @@ public class Main {
         // Write your main program here. Implementing your own classes will be useful.
         String input = "";
         Scanner reader = new Scanner(input);
-        Flight airTraffic = new Flight();
+//        Flight airTraffic = new Flight();
 
 
-        UserInterface ui = new UserInterface(reader,airTraffic);
+//        UserInterface ui = new UserInterface(reader,airTraffic);
 
-        ui.airportUI();
+//        ui.airportUI();
     }
 }
