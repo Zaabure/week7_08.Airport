@@ -14,8 +14,11 @@ public class Airport {
     }
 
     private void startAirportPanel(Scanner reader) {
-        System.out.println("Airport panel\n" +
-                "--------------------\n");
+        System.out.println("Airport panel");
+        System.out.println("----------------");
+        System.out.println();
+
+
         String input;
         do {
             showAirportPanelMenu();
@@ -32,8 +35,10 @@ public class Airport {
     }
 
     private void startFlightService(Scanner reader) {
-        System.out.println("Flight service\n" +
-                "------------\n");
+        System.out.println("Flight service");
+        System.out.println("----------------");
+        System.out.println();
+
         String input;
         do {
             showFlightServiceMenu();
@@ -55,7 +60,7 @@ public class Airport {
         System.out.print("Give plane ID: ");
         String planeID = getUserInput(reader);
 
-        System.out.print("Give plane Capacity: ");
+        System.out.print("Give plane capacity: ");
         int capacity = getNumericInput(reader);
 
         Airplane newAirplane = new Airplane(planeID, capacity);
@@ -64,7 +69,7 @@ public class Airport {
 
     private void addFlight(Scanner reader) {
 
-        Airplane selectedAirplane = getExistingPlane(reader);
+        Airplane selectedAirplane = getAirplaneFromID(reader);
 
         System.out.print("Give departure airport code: ");
         String source = getUserInput(reader);
@@ -90,38 +95,19 @@ public class Airport {
 
     private void printPlaneInfo(Scanner reader) {
         for (Airplane printedPlane : listOfPlanes.values()) {
-            if (printedPlane.getID().equals(getExistingPlane(reader).getID())) {
+            if (printedPlane.getID().equals(getAirplaneFromID(reader).getID())) {
                 System.out.println(printedPlane.toString());
                 break;
             }
         }
     }
 
-    //get Airplane object from getAirplaneID,
-    //if Airplane object is null, call getAirplaneID again
-    //at last, return plane (must not be null)
-    private Airplane getExistingPlane(Scanner reader) {
-        Airplane searchedPlane = getAirplaneFromID(reader);
-
-        while (searchedPlane == null) {
-            System.out.println("This plane was not found");
-            searchedPlane = getAirplaneFromID(reader);
-        }
-        return searchedPlane;
-    }
-
-    //ask user for ID, return Airplane with that ID, else return null
     private Airplane getAirplaneFromID(Scanner reader) {
-        System.out.print("Give plane ID: ");
-        String planeID = getUserInput(reader);
-
-
         Airplane searchedPlane = null;
-        for (String index : listOfPlanes.keySet()) {
-            if (index.equals(planeID)) {
-                searchedPlane = listOfPlanes.get(index);
-                break;
-            }
+        while (searchedPlane == null) {
+            System.out.print("Give plane ID: ");
+            String planeID = getUserInput(reader);
+            searchedPlane = listOfPlanes.get(planeID);
         }
         return searchedPlane;
     }
