@@ -8,9 +8,9 @@ public class Main {
                 "HEL\n" + "x\n" + "1\n" + "2\n" + "3\n";
 
         Scanner reader = new Scanner(System.in);
-        Airport airport = new Airport(reader);
+           Airport airport = new Airport();
 
-        airport.startUI();
+        airport.startUI(reader);
 
     }
 }

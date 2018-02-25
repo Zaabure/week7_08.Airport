@@ -6,41 +6,34 @@ public class Airport {
 
     private Map<String, Airplane> listOfPlanes = new HashMap<String, Airplane>();
     private Map<String, Flight> listOfFlights = new HashMap<String, Flight>();
-    private Scanner reader;
 
 
-    public Airport(Scanner reader) {
-        this.reader = reader;
+    public void startUI(Scanner reader) {
+        startAirportPanel(reader);
+        startFlightService(reader);
     }
 
-
-    public void startUI() {
-        startAirportPanel();
-        startFlightService();
-    }
-
-    private void startAirportPanel() {
+    private void startAirportPanel(Scanner reader) {
         System.out.println("Airport panel\n" +
-                "--------------------");
+                "--------------------\n");
         String input;
         do {
             showAirportPanelMenu();
             input = getUserInput(reader);
 
             if (input.equals("1"))
-                addPlane();
+                addPlane(reader);
             else if (input.equals("2"))
-                addFlight();
+                addFlight(reader);
             else if (!input.equals("x"))
                 System.out.println("Bad input");
         }
         while (!input.equals("x"));
     }
 
-    private void startFlightService() {
+    private void startFlightService(Scanner reader) {
         System.out.println("Flight service\n" +
-                "------------\n" +
-                "\n");
+                "------------\n");
         String input;
         do {
             showFlightServiceMenu();
@@ -51,32 +44,32 @@ public class Airport {
             else if (input.equals("2"))
                 printAllFlights();
             else if (input.equals("3"))
-                printPlaneInfo();
+                printPlaneInfo(reader);
             else if (!input.equals("x"))
                 System.out.println("Bad input");
         }
         while (!input.equals("x"));
     }
 
-    private void addPlane() {
-        System.out.println("Give plane ID: ");
+    private void addPlane(Scanner reader) {
+        System.out.print("Give plane ID: ");
         String planeID = getUserInput(reader);
 
-        System.out.println("Give plane Capacity:");
+        System.out.print("Give plane Capacity: ");
         int capacity = getNumericInput(reader);
 
         Airplane newAirplane = new Airplane(planeID, capacity);
         listOfPlanes.put(planeID, newAirplane);
     }
 
-    private void addFlight() {
+    private void addFlight(Scanner reader) {
 
-        Airplane selectedAirplane = getExistingPlane();
+        Airplane selectedAirplane = getExistingPlane(reader);
 
-        System.out.println("Give departure airport code:");
+        System.out.print("Give departure airport code: ");
         String source = getUserInput(reader);
 
-        System.out.println("Give destination airport code:");
+        System.out.print("Give destination airport code: ");
         String destination = getUserInput(reader);
 
         Flight newFlight = new Flight(selectedAirplane, source, destination);
@@ -95,9 +88,9 @@ public class Airport {
         }
     }
 
-    private void printPlaneInfo() {
+    private void printPlaneInfo(Scanner reader) {
         for (Airplane printedPlane : listOfPlanes.values()) {
-            if (printedPlane.getID().equals(getExistingPlane().getID())) {
+            if (printedPlane.getID().equals(getExistingPlane(reader).getID())) {
                 System.out.println(printedPlane.toString());
                 break;
             }
@@ -107,20 +100,21 @@ public class Airport {
     //get Airplane object from getAirplaneID,
     //if Airplane object is null, call getAirplaneID again
     //at last, return plane (must not be null)
-    private Airplane getExistingPlane() {
-        Airplane searchedPlane = getAirplaneFromID();
+    private Airplane getExistingPlane(Scanner reader) {
+        Airplane searchedPlane = getAirplaneFromID(reader);
 
         while (searchedPlane == null) {
             System.out.println("This plane was not found");
-            searchedPlane = getAirplaneFromID();
+            searchedPlane = getAirplaneFromID(reader);
         }
         return searchedPlane;
     }
 
     //ask user for ID, return Airplane with that ID, else return null
-    private Airplane getAirplaneFromID() {
-        System.out.println("Give plane ID:");
+    private Airplane getAirplaneFromID(Scanner reader) {
+        System.out.print("Give plane ID: ");
         String planeID = getUserInput(reader);
+
 
         Airplane searchedPlane = null;
         for (String index : listOfPlanes.keySet()) {
@@ -144,7 +138,7 @@ public class Airport {
         System.out.println("Choose operation:\n" +
                 "[1] Add airplane\n" +
                 "[2] Add flight\n" +
-                "[x] Exit\n");
+                "[x] Exit");
         System.out.print("> ");
     }
 
@@ -153,7 +147,7 @@ public class Airport {
                 "[1] Print planes\n" +
                 "[2] Print flights\n" +
                 "[3] Print plane info\n" +
-                "[x] Quit\n");
+                "[x] Quit");
         System.out.print("> ");
     }
 
