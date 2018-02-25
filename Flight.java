@@ -1,5 +1,4 @@
 
-import java.util.HashMap;
 
 public class Flight {
 
@@ -8,21 +7,21 @@ public class Flight {
 
     //vytvoreni letu
     private Flight flight;
+    private String source;
+    private String destination;
 
-
-    // trasa letadla Z a DO letiste, vytvarena pro kazde letadlo unikatne
-    private HashMap<String, String> route;
 
     //nutno specifikovat pro ktere letadlo let vytvarim
-    public Flight(Airplane airplane) {
+     Flight(Airplane airplane, String source, String destination) {
         this.airplane = airplane;
-        this.route = new HashMap<String, String>() {
+        this.source = source;
+        this.destination = destination;
 
-        };
     }
 
-    public void addFlightToMap(String odkud, String kam) {
-        route.put(odkud, kam);
-    }
+    @Override
+    public String toString() {
+        return airplane.toString() + " (" + source + "-" + destination + ")";
 
+    }
 }
