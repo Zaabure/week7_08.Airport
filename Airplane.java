@@ -17,6 +17,6 @@ public class Airplane {
 
     @Override
     public String toString() {
-        return getID() + " (" + getCapacity() + ")";
+        return getID() + " (" + getCapacity() + " ppl)";
     }
 }

@@ -94,21 +94,19 @@ public class Airport {
     }
 
     private void printPlaneInfo(Scanner reader) {
-        for (Airplane printedPlane : listOfPlanes.values()) {
-            if (printedPlane.getID().equals(getAirplaneFromID(reader).getID())) {
-                System.out.println(printedPlane.toString());
-                break;
-            }
-        }
+        System.out.println(getAirplaneFromID(reader).toString());
     }
 
     private Airplane getAirplaneFromID(Scanner reader) {
-        Airplane searchedPlane = null;
-        while (searchedPlane == null) {
+        Airplane searchedPlane;
+        do {
             System.out.print("Give plane ID: ");
             String planeID = getUserInput(reader);
             searchedPlane = listOfPlanes.get(planeID);
+            if (searchedPlane == null)
+                System.out.println("Plane with ID " + planeID + " does not exist");
         }
+        while (searchedPlane == null);
         return searchedPlane;
     }
 
